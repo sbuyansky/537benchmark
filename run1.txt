@@ -1,0 +1,79 @@
+[buyansky@mumble-05] (10)$ ./537benchmark
+
+Size: 2
+///////////////////// write  //////////////////////
+numWrites: 67108864
+write: Time elapsed:328581054
+write: Time per write:4.896239
+write: Time per byte: 2.448120
+
+///////////////////// fwrite //////////////////////
+numWrites: 67108864
+fwrite: Time elapsed:6811400
+fwrite: Time per write:0.101498
+fwrite: Time per byte: 0.050749
+
+Size: 16
+///////////////////// write  //////////////////////
+numWrites: 8388608
+write: Time elapsed:45375321
+write: Time per write:5.409160
+write: Time per byte: 0.338072
+
+///////////////////// fwrite //////////////////////
+numWrites: 8388608
+fwrite: Time elapsed:4229806
+fwrite: Time per write:0.504232
+fwrite: Time per byte: 0.031515
+
+Size: 128
+///////////////////// write  //////////////////////
+numWrites: 1048576
+write: Time elapsed:9238924
+write: Time per write:8.810925
+write: Time per byte: 0.068835
+
+///////////////////// fwrite //////////////////////
+numWrites: 1048576
+fwrite: Time elapsed:4905953
+fwrite: Time per write:4.678681
+fwrite: Time per byte: 0.036552
+
+Size: 1026
+///////////////////// write  //////////////////////
+numWrites: 130816
+write: Time elapsed:5115332
+write: Time per write:39.103260
+write: Time per byte: 0.038112
+
+///////////////////// fwrite //////////////////////
+numWrites: 130816
+fwrite: Time elapsed:3818339
+fwrite: Time per write:29.188624
+fwrite: Time per byte: 0.028449
+
+Size: 8192
+///////////////////// write  //////////////////////
+numWrites: 16384
+write: Time elapsed:4219227
+write: Time per write:257.521179
+write: Time per byte: 0.031436
+
+///////////////////// fwrite //////////////////////
+numWrites: 16384
+fwrite: Time elapsed:4971474
+fwrite: Time per write:303.434692
+fwrite: Time per byte: 0.037040
+
+Size: 65536
+///////////////////// write  //////////////////////
+numWrites: 2048
+write: Time elapsed:3773682
+write: Time per write:1842.618164
+write: Time per byte: 0.028116
+
+///////////////////// fwrite //////////////////////
+numWrites: 2048
+fwrite: Time elapsed:4691315
+fwrite: Time per write:2290.681152
+fwrite: Time per byte: 0.034953
