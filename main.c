@@ -56,7 +56,6 @@ void writeFile(int size){
 	/*calculate the number of writes to be done*/
 
 	numWrites = FILESIZE/size;
-	printf("numWrites: %d\n", numWrites);
 
 	/*get starting time*/
 
@@ -93,7 +92,6 @@ void writeFile(int size){
 
 	printf("write: Time elapsed:%ld\n", time_elapsed);
 
-
 	/*fwrite*/ 
 
 	printf("///////////////////// fwrite %d //////////////////////\n", size);
@@ -107,8 +105,6 @@ void writeFile(int size){
 		exit(ERROR_RETURN);
 	}
 	
-	printf("numWrites: %d\n", numWrites);
-
 	/*get starting time */
 
 	if(gettimeofday(&begin_time, NULL) == -1){
