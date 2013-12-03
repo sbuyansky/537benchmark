@@ -9,7 +9,7 @@
 const int ERROR_RETURN = -1;
 const int FILESIZE = 134217728;
 const int SECONDS_TO_MICROSECONDS = 1000000;
-const char C = 'c';
+const char C = '';
 const int STRING_SIZE = 80;
 
 void writeFile(int size);
@@ -29,12 +29,12 @@ void writeFile(int size){
 	int i, filedesc, numWrites;
 	long int time_elapsed;
 	struct timeval begin_time, end_time;
-	char buff[size+1], writeName[STRING_SIZE], fwriteName[STRING_SIZE];
+	char buff[size], writeName[STRING_SIZE], fwriteName[STRING_SIZE];
 
 	FILE * pFile;
 
-	sprintf(writeName,"write_%d",size);
-	sprintf(fwriteName,"fwrite_%d",size);
+	sprintf(writeName,"/tmp/write_%d",size);
+	sprintf(fwriteName,"/tmp/fwrite_%d",size);
 
 	printf("Size: %d\n", size);
 
@@ -52,7 +52,7 @@ void writeFile(int size){
 		buff[i] = C;
 	}
 
-	buff[size] = '\0';
+	//buff[size] = '\0';
 
 	numWrites = FILESIZE/size;
 	printf("numWrites: %d\n", numWrites);
