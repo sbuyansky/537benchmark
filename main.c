@@ -9,7 +9,6 @@
 const int ERROR_RETURN = -1;
 const int FILESIZE = 134217728;
 const int SECONDS_TO_MICROSECONDS = 1000000;
-const char C = '';
 const int STRING_SIZE = 80;
 
 void writeFile(int size);
@@ -18,7 +17,7 @@ int main(){
 	writeFile(2);
 	writeFile(16);
 	writeFile(128);
-	writeFile(1026);
+	writeFile(1024);
 	writeFile(8192);
 	writeFile(65536);
 	return 0;
@@ -48,9 +47,9 @@ void writeFile(int size){
 		exit(ERROR_RETURN);
 	}
 	
-	for(i = 0; i < size; i++){
-		buff[i] = C;
-	}
+	//for(i = 0; i < size; i++){
+	//	buff[i] = C;
+	//}
 
 	//buff[size] = '\0';
 
