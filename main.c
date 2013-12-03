@@ -5,6 +5,8 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <errno.h>
+#include <string.h>
 
 const int ERROR_RETURN = -1;
 const int FILESIZE = 134217728;
@@ -32,59 +34,71 @@ void writeFile(int size){
 
 	FILE * pFile;
 
+	/*prepare file names*/
+
 	sprintf(writeName,"/tmp/write_%d",size);
 	sprintf(fwriteName,"/tmp/fwrite_%d",size);
 
-	printf("Size: %d\n", size);
-
 	/*write*/
-	printf("///////////////////// write  //////////////////////\n");
 
-	filedesc = open(writeName, O_RDWR | O_TRUNC | O_CREAT);
+	printf("///////////////////// write %d //////////////////////\n", size);
+
+	/*open file for writing*/
+
+	filedesc = open(writeName, O_RDWR | O_CREAT | O_TRUNC, 0777);
 
 	if(filedesc < 0){
-		fprintf(stderr, "Cannot open file to write to\n");
+		fprintf(stderr, "write: cannot open file to write to\n");
+		fprintf(stderr, "%s\n", strerror(errno));
 		exit(ERROR_RETURN);
 	}
 	
-	//for(i = 0; i < size; i++){
-	//	buff[i] = C;
-	//}
-
-	//buff[size] = '\0';
+	/*calculate the number of writes to be done*/
 
 	numWrites = FILESIZE/size;
 	printf("numWrites: %d\n", numWrites);
+
+	/*get starting time*/
 
 	if(gettimeofday(&begin_time, NULL) == -1){
 		fprintf(stderr, "Could not get time of day.\n");
 		exit(ERROR_RETURN);
 	}
 
+	/*perform writes*/
+
 	for(i = 0; i < numWrites; i++){
 		write(filedesc, buff, size);
 	}
+
+	/*get end time*/
 
 	if(gettimeofday(&end_time, NULL) == -1){
 		fprintf(stderr, "Could not get time of day.\n");
 		exit(ERROR_RETURN);
 	}
 
+	/*close file */
+
 	if(close(filedesc) == -1){
 		fprintf(stderr, "File could not be closed\n");
 		exit(ERROR_RETURN);
 	}
 
+	/*calculate time elapsed in microseconds */
+
 	time_elapsed = (SECONDS_TO_MICROSECONDS * (end_time.tv_sec-begin_time.tv_sec)) + (end_time.tv_usec - begin_time.tv_usec);
 
+	/*print out statistics */
+
 	printf("write: Time elapsed:%ld\n", time_elapsed);
-	printf("write: Time per write:%f\n", (double) time_elapsed/ (double) numWrites);
-	printf("write: Time per byte: %f\n\n", (double) time_elapsed/ (double) FILESIZE);
 
 
 	/*fwrite*/ 
 
-	printf("///////////////////// fwrite //////////////////////\n");
+	printf("///////////////////// fwrite %d //////////////////////\n", size);
+	
+	/*open file*/
 
 	pFile = fopen(fwriteName, "w+");
 
@@ -93,32 +107,40 @@ void writeFile(int size){
 		exit(ERROR_RETURN);
 	}
 	
-	numWrites = FILESIZE/size;
 	printf("numWrites: %d\n", numWrites);
+
+	/*get starting time */
 
 	if(gettimeofday(&begin_time, NULL) == -1){
 		fprintf(stderr, "Could not get time of day.\n");
 		exit(ERROR_RETURN);
 	}
 
+	/*perform writes */
+
 	for(i = 0; i < numWrites; i++){
 		fwrite(buff, sizeof(char), size, pFile);
 	}
+
+	/*get end time*/
 
 	if(gettimeofday(&end_time, NULL) == -1){
 		fprintf(stderr, "Could not get time of day.\n");
 		exit(ERROR_RETURN);
 	}
 
+	/*close file */
+
 	if(fclose(pFile) != 0){
 		fprintf(stderr, "File could not be closed\n");
 		exit(ERROR_RETURN);
 	}
 
+	/*calculate time elapsed in microseconds */
+
 	time_elapsed = (SECONDS_TO_MICROSECONDS * (end_time.tv_sec-begin_time.tv_sec)) + (end_time.tv_usec - begin_time.tv_usec);
 
-	printf("fwrite: Time elapsed:%ld\n", time_elapsed);
-	printf("fwrite: Time per write:%f\n", (double) time_elapsed/ (double) numWrites);
-	printf("fwrite: Time per byte: %f\n\n", (double) time_elapsed/ (double) FILESIZE);
+	/*print out statistics*/
 
+	printf("fwrite: Time elapsed:%ld\n", time_elapsed);
 }
