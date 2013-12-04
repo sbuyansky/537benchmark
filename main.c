@@ -8,6 +8,16 @@
 #include <errno.h>
 #include <string.h>
 
+/*main.c
+ *
+ * cs537 Program 4 
+ * Spencer Buyansky, Ryan Nie
+ *
+ * Benchmark program that calculates the time it takes to write a certain number of bytes into a file.
+ * This test is run many times each time increasing the number of bytes written per write. The system calls
+ * write and fwrite are both tested. 
+ */
+
 const int ERROR_RETURN = -1;
 const int FILESIZE = 134217728;
 const int SECONDS_TO_MICROSECONDS = 1000000;
